@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="player3" class="com.khie.di06.Player">
+		<constructor-arg value="김현수" />
+		<constructor-arg value="33" />
+		<constructor-arg>
+			<list>
+				<value>3번타자</value>
+				<value>좌익수</value>
+			</list>
+		</constructor-arg>
+		<property name="weight" value="95" />
+		<property name="height" value="185" />
+	</bean>
+	
+	<bean id="team" class="com.khie.di06.BaseballTeam">
+		<constructor-arg value="김경문" />
+		<constructor-arg value="이승엽" />
+		<constructor-arg value="선동려" />
+		<property name="hitter" value="양의지" />
+		<property name="pitcher" value="양현종" />
+	</bean>
+
+</beans>
