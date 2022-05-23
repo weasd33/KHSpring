@@ -98,4 +98,45 @@ public class MemberController {
 			out.println("</script>");
 		}
 	}
+	
+	@RequestMapping("member_delete.do")
+	public void delete(@RequestParam("num") int num, HttpServletResponse response) throws IOException {
+		
+		int check = this.dao.deleteMember(num);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			this.dao.updateSequence(num);
+			out.println("<script>");
+			out.println("alert('회원 삭제 성공!!')");
+			out.println("location.href='member_list.do'");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('회원 삭제 실패..')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
+	@RequestMapping("member_search.do")
+	public String search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model) {
+		
+		List<MemberDTO> list = this.dao.searchMemberList(field, keyword);
+		
+		model.addAttribute("searchList", list);
+	
+		return "member_searchList";
+	}
 }
+
+
+
+
+
+
+
+
