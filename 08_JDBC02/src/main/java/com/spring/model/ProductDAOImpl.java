@@ -15,18 +15,16 @@ public class ProductDAOImpl implements ProductDAO{
 	@Autowired
 	private JdbcTemplate template;
 	
-	String sql = null;
-	
 	@Override
 	public List<ProductDTO> getProductList() {
 		
 		List<ProductDTO> list = null; 
 		
-		sql = "SELECT * FROM PRODUCT ORDER BY PNO DESC";
-		
-		return list = this.template.query(sql, new RowMapper<ProductDTO>() {
+		return list = this.template.query("SELECT * FROM PRODUCT ORDER BY PNO DESC", new RowMapper<ProductDTO>() {
+			
 			@Override
 			public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
 				ProductDTO dto = new ProductDTO();
 				dto.setPno(rs.getInt("PNO"));
 				dto.setPname(rs.getString("PNAME"));
@@ -43,8 +41,25 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public int insertProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String cName = null;
+		
+		if(dto.getCno() == 1) {
+			cName = "프로그래밍";
+		} else if (dto.getCno() == 2) {
+			cName = "요리";
+		} else if (dto.getCno() == 3) {
+			cName = "경제";
+		} else if (dto.getCno() == 4) {
+			cName = "건강";
+		} else {
+			cName = null;
+		}
+		
+		int count = this.template.queryForObject("SELECT MAX(PNO) FROM PRODUCT WHERE CNO = ?", Integer.class, dto.getCno());
+
+		return this.template.update("INSERT INTO PRODUCT VALUES(?, ?, ?, ?, ?, ?, ?)", 
+				count + 1, dto.getPname(), dto.getStock(), dto.getPrice(), dto.getCompany(), dto.getCno(), cName);
 	}
 
 	@Override
@@ -73,12 +88,6 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public List<ProductDTO> searchProduct(String field, String keyword) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CategoryDTO> categoryList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@
 							href="<%=request.getContextPath() %>/member_content.do?num=${dto.getPno() }">${dto.getPname() }</a>
 						</td>
 						<td>${dto.getStock() }</td>
-						<td>${dto.getPrice() }</td>
+						<td><fmt:formatNumber value="${dto.getPrice() }" />원</td>
 						<td>${dto.getCompany() }</td>
 						<td>${dto.getCno() }</td>
 						<td>${dto.getCname() }</td>
@@ -46,6 +47,12 @@
 					</td>
 				</tr>
 			</c:if>
+			
+			<tr>
+				<td colspan="7" align="right">
+					<input type="button" value="제품등록" onclick="location.href='product_insert.do'">
+				</td>
+			</tr>
 		</table>
 		<br>
 	</div>

@@ -55,8 +55,6 @@ public class MemberDAOImpl implements MemberDAO {
 	// MEMBER10 테이블에 회원을 등록하는 메서드
 	public int insertMember(final MemberDTO dto) {
 
-		sql = "SELECT MAX(NUM) FROM MEMBER10";
-
 		final int count = this.template.queryForObject("SELECT COUNT(*) FROM MEMBER10", Integer.class);
 
 		sql = "INSERT INTO MEMBER10 VALUES(?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
