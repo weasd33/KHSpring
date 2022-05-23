@@ -23,7 +23,9 @@
 				<c:forEach items="${list }" var="dto">
 					<tr>
 						<td>${dto.getNum() }</td>
-						<td>${dto.getName() }</td>
+						<td>
+							<a href="<%=request.getContextPath() %>/member_content.do?num=${dto.getNum() }">${dto.getName() }</a>
+						</td>
 						<td>${dto.getJob() }</td>
 						<td>${dto.getRegdate().subString(0, 10) }</td>
 					</tr>

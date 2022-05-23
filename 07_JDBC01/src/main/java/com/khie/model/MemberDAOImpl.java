@@ -1,11 +1,13 @@
 package com.khie.model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -50,9 +52,29 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public int insertMember(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	// MEMBER10 테이블에 회원을 등록하는 메서드
+	public int insertMember(final MemberDTO dto) {
+		
+		sql = "SELECT MAX(NUM) FROM MEMBER10";
+		
+		final int count = this.template.queryForObject("SELECT COUNT(*) FROM MEMBER10", Integer.class);
+		
+		sql = "INSERT INTO MEMBER10 VALUES(?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
+		
+		return this.template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, count + 1);
+				ps.setString(2, dto.getMemid());
+				ps.setString(3, dto.getMemname());
+				ps.setString(4, dto.getPwd());
+				ps.setInt(5, dto.getAge());
+				ps.setInt(6, dto.getMileage());
+				ps.setString(7, dto.getJob());
+				ps.setString(8, dto.getAddr());
+			}
+		});
 	}
 
 	@Override
