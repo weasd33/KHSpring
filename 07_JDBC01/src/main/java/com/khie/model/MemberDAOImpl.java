@@ -79,14 +79,49 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public MemberDTO getMember(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		sql = "SELECT * FROM MEMBER10 WHERE NUM = ?";
+		
+		return this.template.queryForObject(sql, new RowMapper<MemberDTO>() {
+			
+			@Override
+			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				MemberDTO dto = new MemberDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setMemid(rs.getString("memid"));
+				dto.setMemname(rs.getString("memname"));
+				dto.setPwd(rs.getString("pwd"));
+				dto.setAge(rs.getInt("age"));
+				dto.setMileage(rs.getInt("mileage"));
+				dto.setJob(rs.getString("job"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setRegdate(rs.getString("regdate"));
+				
+				return dto;
+			}
+		}, num);
+		
 	}
 
 	@Override
-	public int updateMember(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMember(final MemberDTO dto) {
+		
+		sql = "UPDATE MEMBER10 SET AGE = ?, "
+				+ "MILEAGE = ?, JOB = ?, "
+				+ "ADDR = ? WHERE NUM = ?";
+		
+		return this.template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, dto.getAge());
+				ps.setInt(2, dto.getMileage());
+				ps.setString(3, dto.getJob());
+				ps.setString(4, dto.getAddr());
+				ps.setInt(5, dto.getNum());
+			}
+		});
 	}
 
 	@Override
