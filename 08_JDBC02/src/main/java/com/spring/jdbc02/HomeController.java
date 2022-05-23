@@ -1,4 +1,4 @@
-package com.khie.jdbc01;
+package com.spring.jdbc02;
 
 import java.util.Locale;
 
@@ -19,11 +19,11 @@ public class HomeController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
-	 */	
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		return "home";
+		return "main";
 	}
 	
 }

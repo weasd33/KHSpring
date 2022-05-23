@@ -3,9 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.khie</groupId>
-	<artifactId>jdbc01</artifactId>
-	<name>07_JDBC01</name>
+	<groupId>com.spring</groupId>
+	<artifactId>jdbc02</artifactId>
+	<name>08_JDBC02</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -48,7 +48,6 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
 
 		<!-- AspectJ -->
 		<dependency>
