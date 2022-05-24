@@ -30,7 +30,7 @@
 					<tr>
 						<td>${dto.getPno() }</td>
 						<td><a
-							href="<%=request.getContextPath() %>/member_content.do?num=${dto.getPno() }">${dto.getPname() }</a>
+							href="<%=request.getContextPath() %>/product_content.do?num=${dto.getPno() }">${dto.getPname() }</a>
 						</td>
 						<td>${dto.getStock() }</td>
 						<td><fmt:formatNumber value="${dto.getPrice() }" />원</td>

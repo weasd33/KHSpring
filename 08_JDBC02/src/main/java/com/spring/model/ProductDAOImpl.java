@@ -64,25 +64,44 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public ProductDTO getProductCont(int pno) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.template.queryForObject("SELECT * FROM PRODUCT WHERE PNO = ?", new RowMapper<ProductDTO>() {
+			
+			@Override
+			public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				ProductDTO dto = new ProductDTO();
+				dto.setPno(rs.getInt("PNO"));
+				dto.setPname(rs.getString("PNAME"));
+				dto.setStock(rs.getInt("STOCK"));
+				dto.setPrice(rs.getInt("PRICE"));
+				dto.setCompany(rs.getString("COMPANY"));
+				dto.setCno(rs.getInt("CNO"));
+				dto.setCname(rs.getString("CNAME"));
+				
+				return dto;
+			}
+		}, pno);
 	}
 
 	@Override
-	public int updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void updateProduct(ProductDTO dto) {
+		
+		this.template.update("UPDATE PRODUCT SET "
+				+ "PNAME = ?, STOCK = ?, PRICE = ?, COMPANY = ? WHERE PNO = ?",
+				dto.getPname(), dto.getStock(), dto.getPrice(), dto.getCompany(), dto.getPno());
 	}
 
 	@Override
-	public int deleteProduct(int pno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void deleteProduct(int pno) {
+		
+		this.template.update("DELETE FROM PRODUCT WHERE PNO = ?", pno);
 	}
 
 	@Override
-	public void updateSeq(int pno) {
-		// TODO Auto-generated method stub
+	public void updateSeq(int pno, int cno) {
+		
+		this.template.update("UPDATE PRODUCT SET PNO = PNO - 1 WHERE CNO = ? AND PNO > ?", cno, pno);
 		
 	}
 
