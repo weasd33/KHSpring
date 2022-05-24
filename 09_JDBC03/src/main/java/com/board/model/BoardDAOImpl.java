@@ -53,14 +53,30 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public BoardDTO boardCont(int no) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.template.queryForObject("SELECT * FROM BOARD WHERE BOARD_NO = ?", new RowMapper<BoardDTO>() {
+			
+			@Override
+			public BoardDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBoard_no(rs.getInt("board_no"));
+				dto.setBoard_writer(rs.getString("board_writer"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_cont(rs.getString("board_content"));
+				dto.setBoard_pwd(rs.getString("board_pwd"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_date(rs.getString("board_date"));
+				dto.setBoard_update(rs.getString("board_update"));
+				
+				return dto;
+			}
+		}, no);
 	}
 
 	@Override
 	public void readCount(int no) {
-		// TODO Auto-generated method stub
-
+		this.template.update("UPDATE BOARD SET BOARD_HIT = BOARD_HIT + 1 WHERE BOARD_NO = ?", no);
 	}
 
 	@Override
