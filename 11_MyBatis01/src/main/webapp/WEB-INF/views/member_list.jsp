@@ -22,11 +22,18 @@
 			<c:forEach items="${list }" var="dto">
 				<tr>
 					<td>${dto.getNum() }</td>
-					<td>${dto.getMemname() }</td>
+					<td>
+						<a href="<%=request.getContextPath() %>/member_content.do?num=${dto.getNum() }">${dto.getMemname() }</a>
+					</td>
 					<td>${dto.getJob() }</td>
 					<td>${dto.getRegdate().substring(0, 10) }</td>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td colspan="4" align="center">
+					<input type="button" value="회원등록" onclick="location.href='member_insert.do'">
+				</td>
+			</tr>
 		</table>
 	</div>
 </body>

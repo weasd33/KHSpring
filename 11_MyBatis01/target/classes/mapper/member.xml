@@ -15,4 +15,9 @@
 	<select id="all" resultType="com.spring.model.MemberDTO">
 		SELECT * FROM MEMBER10 ORDER BY NUM DESC
 	</select>
+	
+	<insert id="add" parameterType="com.spring.model.MemberDTO">
+		INSERT INTO MEMBER10 VALUES ((SELECT MAX(NUM) FROM MEMBER10) + 1, 
+			#{memid}, #{memname}, #{pwd}, #{age}, #{mileage}, #{job}, #{addr}, SYSDATE)
+	</insert>
 </mapper>
