@@ -33,6 +33,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- lombok 라이브러리 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- Spring AOP aspectjweaver lib -->
 		<dependency>
@@ -42,7 +50,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Spring AOP cglib lib : 동적으로 자바 클래스의 프록시를 생성해 주는 기능을 제공-->
+		<!-- Spring AOP cglib lib : 동적으로 자바 클래스의 프록시를 생성해 주는 기능을 제공 -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
