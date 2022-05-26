@@ -12,12 +12,51 @@
 	 namespace 명은 mapper 들을 구분하는데 식별자로 사용됨.
 -->
 <mapper namespace="com.spring.model.MemberDAO">
+	<!-- 전체 조회 -->
 	<select id="all" resultType="com.spring.model.MemberDTO">
 		SELECT * FROM MEMBER10 ORDER BY NUM DESC
 	</select>
 	
+	<!-- 회원 추가 -->
 	<insert id="add" parameterType="com.spring.model.MemberDTO">
 		INSERT INTO MEMBER10 VALUES ((SELECT MAX(NUM) FROM MEMBER10) + 1, 
 			#{memid}, #{memname}, #{pwd}, #{age}, #{mileage}, #{job}, #{addr}, SYSDATE)
 	</insert>
+	
+	<!-- 회원 정보 -->
+	<select id="content" parameterType="int" resultType="com.spring.model.MemberDTO">
+		SELECT * FROM MEMBER10 WHERE NUM = #{num}
+	</select>
+	
+	<!-- 회원 수정 -->
+	<update id="edit" parameterType="com.spring.model.MemberDTO">
+		UPDATE MEMBER10 SET 
+				AGE = #{age}, MILEAGE = #{mileage}, JOB = #{job}, ADDR = #{addr} WHERE NUM = #{num}  
+	</update>
+	
+	<!-- 회원 삭제 -->
+	<delete id="del" parameterType="int">
+		DELETE FROM MEMBER10 WHERE NUM = #{num}
+	</delete>
+	
+	<!-- 시퀀스 -->
+	<!-- 형식) <![CDATA[쿼리문]]> 
+		쿼리문을 작성할 때 조건식 기호(>, <, &)를 사용해야 하는데 XML에서는 이런 기호들을
+		쿼리문의 조건식 기호로 인식하는 것이 아닌 태그로 인식하는 경우가 발생.
+		따라서 조건식 기호들을 단순한 문자열로 인식을 시켜주어야 함.
+	-->
+	<update id="seq" parameterType="int">
+		<![CDATA[UPDATE MEMBER10 SET NUM = NUM - 1 WHERE NUM > #{num}]]>
+	</update>
+	
+	<!-- 검색태그(id=검색name) -->
+	<select id="id" parameterType="String" resultType="com.spring.model.MemberDTO">
+		SELECT * FROM MEMBER10 WHERE MEMID LIKE '%' || #{keyword} || '%' ORDER BY NUM DESC
+	</select>
+	<select id="name" parameterType="String" resultType="com.spring.model.MemberDTO">
+		SELECT * FROM MEMBER10 WHERE MEMNAME LIKE '%' || #{keyword} || '%' ORDER BY NUM DESC
+	</select>
+	<select id="job" parameterType="String" resultType="com.spring.model.MemberDTO">
+		SELECT * FROM MEMBER10 WHERE JOB LIKE '%' || #{keyword} || '%' ORDER BY NUM DESC
+	</select>
 </mapper>

@@ -24,32 +24,27 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberDTO getMember(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectOne("content", num);
 	}
 
 	@Override
 	public int updateMember(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.update("edit", dto);
 	}
 
 	@Override
 	public int deleteMember(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.delete("del", num);
 	}
 
 	@Override
 	public void updateSequence(int num) {
-		// TODO Auto-generated method stub
-		
+		this.sqlSession.update("seq", num);
 	}
 
 	@Override
 	public List<MemberDTO> searchMemberList(String field, String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectList(field, keyword);
 	}
 	
 	

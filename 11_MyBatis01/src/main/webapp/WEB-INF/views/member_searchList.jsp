@@ -5,30 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MEMBER</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<div align="center">
 		<hr width="50%" color="red">
-			<h3>MEMBER10 TABLE ALL LIST</h3>
+			<h3>MEMBER SEARCH LIST</h3>
 		<hr width="50%" color="red"> <br>
 		
-		<form method="post" action="<%=request.getContextPath() %>/member_search.do">
-			<select name="field">
-				<option value="id">아이디</option>
-				<option value="name">이름</option>
-				<option value="job">직업</option>
-			</select>
-			<input name="keyword" />
-			<input type="submit" value="검색" />
-		</form>
-		<br>
-		<table border="1" cellspacing="0" width="400">
+		<table border="1" cellspacing="0" width="450">
 			<tr>
-				<th>No.</th> <th>이 름</th> 
-				<th>직 업</th> <th>가입일</th> 
+				<th>No.</th> <th>이 름</th>
+				<th>직 업</th> <th>가입일</th>
 			</tr>
-			<c:set var="list" value="${List }" />
+			<c:set var="list" value="${search }" />
 			<c:forEach items="${list }" var="dto">
 				<tr>
 					<td>${dto.getNum() }</td>
@@ -39,9 +29,10 @@
 					<td>${dto.getRegdate().substring(0, 10) }</td>
 				</tr>
 			</c:forEach>
+			
 			<tr>
 				<td colspan="4" align="center">
-					<input type="button" value="회원등록" onclick="location.href='member_insert.do'">
+					<input type="button" value="회원목록" onclick="location.href='member_list.do'">
 				</td>
 			</tr>
 		</table>
