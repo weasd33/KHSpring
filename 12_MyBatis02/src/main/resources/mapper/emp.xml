@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!--	
+	empdao = com.emp.model.EmpDAO 
+	empdto = com.emp.model.EmpDTO
+	deptdto = com.emp.model.DeptDTO 
+-->
+<mapper namespace="empdao">
+	<select id="list" resultType="empdto">
+		SELECT * FROM EMP ORDER BY EMPNO DESC
+	</select>
+	
+	<select id="jobList" resultType="String">
+		SELECT DISTINCT JOB FROM EMP ORDER BY JOB
+	</select>
+	
+	<select id="mgrList" resultType="empdto">
+		SELECT * FROM EMP WHERE JOB = 'MANAGER' ORDER BY EMPNO
+	</select>
+	
+	<select id="deptList" resultType="deptdto">
+		SELECT * FROM DEPT ORDER BY DEPTNO
+	</select>
+	
+	<insert id="add" parameterType="empdto">
+		INSERT INTO EMP VALUES (#{empno}, #{ename}, #{job}, #{mgr}, SYSDATE, #{sal}, #{comm}, #{deptno})
+	</insert>
+	
+	<select id="cont" parameterType="int" resultType="empdto">
+		SELECT * FROM EMP WHERE EMPNO = #{empno}
+	</select>
+	
+	<update id="edit" parameterType="empdto">
+		UPDATE EMP SET JOB = #{job}, MGR = #{mgr}, SAL = #{sal}, COMM = #{comm}, DEPTNO = #{deptno} WHERE EMPNO = #{empno}
+	</update>
+</mapper>
