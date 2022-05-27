@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!--	
+	boardDao = com.board.model.BoardDAO
+	boardDto = com.board.model.BoardDTO
+	pageDto = com.board.model.PageDTO
+-->
+
+<mapper namespace="boardDao">
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
+	
+	<select id="list" parameterType="pageDto" resultType="boardDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM FROM BOARD B)
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+</mapper>
+
