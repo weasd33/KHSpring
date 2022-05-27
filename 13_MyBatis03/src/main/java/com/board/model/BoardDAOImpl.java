@@ -24,38 +24,32 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public int insertBoard(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.insert("add", dto);
 	}
 
 	@Override
 	public void readCount(int no) {
-		// TODO Auto-generated method stub
-
+		this.sqlSession.update("read", no);
 	}
 
 	@Override
 	public BoardDTO boardCont(int no) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectOne("content", no);
 	}
 
 	@Override
 	public int updateBoard(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.update("modify", dto);
 	}
 
 	@Override
 	public int deleteBoard(int no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.delete("del", no);
 	}
 
 	@Override
 	public void updateSequence(int no) {
-		// TODO Auto-generated method stub
-
+		this.sqlSession.update("seq", no);
 	}
 
 	@Override

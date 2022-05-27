@@ -13,6 +13,18 @@
 			<h3>BOARD ALL LIST</h3>
 		<hr width="50%" color="red"> <br>
 		
+		<form method="post" action="<%=request.getContextPath() %>/board_search.do">
+			<select name="field">
+				<option value="title">제목</option>
+				<option value="cont">내용</option>
+				<option value="title_cont">제목+내용</option>
+				<option value="writer">작성자</option>
+			</select>
+			
+			<input name="keyword" />
+			<input type="submit" value="검색" />
+		</form>
+		
 		<table border="1" cellspacing="0" width="500">
 			<tr>
 				<th>No.</th> <th>제 목</th>
@@ -26,7 +38,9 @@
 				<c:forEach items="${list }" var="i">
 					<tr>
 						<td>${i.board_no }</td>
-						<td>${i.board_title }</td>
+						<td>
+							<a href="<%=request.getContextPath() %>/board_content.do?no=${i.board_no }&page=${paging.getPage() }">${i.board_title }</a>
+						</td>
 						<td>${i.board_writer }</td>
 						<td>${i.board_hit }</td>
 						<td>${i.board_date.substring(0, 10) }</td>
@@ -41,6 +55,12 @@
 					</td>
 				</tr>
 			</c:if>
+			
+			<tr>
+				<td colspan="5" align="center">
+					<input type="button" value="글쓰기" onclick="location.href='board_write.do'">
+				</td>	
+			</tr>
 		</table>
 		<br>
 		
@@ -61,24 +81,8 @@
 		
 		<c:if test="${paging.getEndBlock() < paging.getAllPage() }">
 			<a href="board_list.do?page=${paging.getEndBlock() + 1 }">▶</a>
-			<a href="board_list.do?page=${paging.getAllPage() - 1 }">[끝]</a>
+			<a href="board_list.do?page=${paging.getAllPage() }">[끝]</a>
 		</c:if>		
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
