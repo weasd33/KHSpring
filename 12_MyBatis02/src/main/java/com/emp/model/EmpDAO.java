@@ -12,4 +12,5 @@ public interface EmpDAO {
 	public List<DeptDTO> getDeptList();
 	public List<EmpDTO> getMgrList();
 	public List<String> getJobList();
+	public List<EmpDTO> searchList(String field, String keyword);
 }

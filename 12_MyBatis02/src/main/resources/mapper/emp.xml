@@ -37,4 +37,20 @@
 	<update id="edit" parameterType="empdto">
 		UPDATE EMP SET JOB = #{job}, MGR = #{mgr}, SAL = #{sal}, COMM = #{comm}, DEPTNO = #{deptno} WHERE EMPNO = #{empno}
 	</update>
+	
+	<delete id="del" parameterType="int">
+		DELETE FROM EMP WHERE EMPNO = #{empno}
+	</delete>
+	
+	<select id="empno" parameterType="">
+		SELECT * FROM EMP WHERE EMPNO LIKE '%' || #{keyword} || '%'
+	</select>
+
+	<select id="name" parameterType="String">
+		SELECT * FROM EMP WHERE ENAME LIKE '%' || #{keyword} || '%'
+	</select>
+
+	<select id="job" parameterType="String">
+		SELECT * FROM EMP WHERE JOB LIKE '%' || #{keyword} || '%'
+	</select>
 </mapper>

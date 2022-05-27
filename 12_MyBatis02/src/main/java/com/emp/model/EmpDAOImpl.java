@@ -36,8 +36,7 @@ public class EmpDAOImpl implements EmpDAO {
 
 	@Override
 	public int deleteEmp(int empno) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.delete("del", empno);
 	}
 
 	@Override
@@ -53,6 +52,11 @@ public class EmpDAOImpl implements EmpDAO {
 	@Override
 	public List<String> getJobList() {
 		return this.sqlSession.selectList("jobList");
+	}
+
+	@Override
+	public List<EmpDTO> searchList(String field, String keyword) {
+		return this.sqlSession.selectList(field, keyword);
 	}
 
 }

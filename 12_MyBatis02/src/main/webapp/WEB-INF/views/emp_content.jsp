@@ -57,7 +57,7 @@
 				<td colspan="2" align="center">
 					<input type="button" value="사원수정" onclick="location.href='emp_update.do?no=${dto.empno }'">
 					<input type="button" value="사원삭제" onclick="if(confirm('정말로 삭제하시겠습니까??')) {
-						location.href='emp_delete.do?no=${dto.empno } } else { return; }'">
+						location.href='emp_delete.do?no=${dto.empno }' } else { return; }">
 					<input type="button" value="사원목록" onclick="location.href='emp_list.do'">
 				</td>
 			</tr>

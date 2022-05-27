@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,36 @@ public class EmpController {
 			out.println("history.back()");
 			out.println("</script>");
 		}
+	}
+	
+	@RequestMapping("emp_delete.do")
+	public void delete(@RequestParam("no") int empno, HttpServletResponse response) throws IOException {
+		int result = this.dao.deleteEmp(empno);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0) {
+			out.println("<script>");
+			out.println("alert('사원 삭제 성공!!')");
+			out.println("location.href='emp_list.do'");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('사원 삭제 실패..')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
+	@RequestMapping("emp_search.do")
+	public String search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model) {
+		List<EmpDTO> list = this.dao.searchList(field, keyword);
+		
+		model.addAttribute("searchList", list);
+		
+		return "emp_searchList";
 	}
 }
 
