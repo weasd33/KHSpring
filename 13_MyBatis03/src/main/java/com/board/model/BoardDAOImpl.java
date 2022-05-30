@@ -54,14 +54,13 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public int searchBoardCount(String field, String keyword) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.selectOne(field, keyword);
 	}
 
 	@Override
 	public List<BoardDTO> searchBoardList(PageDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.sqlSession.selectList(dto.getField() + 1, dto);
 	}
 
 }

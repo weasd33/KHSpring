@@ -48,4 +48,10 @@ public class PageDTO {
 		}
 	}
 	
+	public PageDTO(int page, int rowsize, int totalRecord, String field, String keyword) {
+		this(page, rowsize, totalRecord);
+		this.field = field;
+		this.keyword = keyword;
+	}
+	
 }

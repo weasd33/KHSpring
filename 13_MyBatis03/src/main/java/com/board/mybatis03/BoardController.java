@@ -178,4 +178,24 @@ public class BoardController {
 			out.println("</script>");
 		}
 	}
+	
+	@RequestMapping("board_search.do")
+	public String search(@RequestParam("field") String field,
+				@RequestParam("keyword") String keyword,
+				@RequestParam("page") int nowPage, Model model) {
+		
+		totalRecord = this.dao.searchBoardCount(field, keyword);
+		
+		PageDTO dto = new PageDTO(nowPage, rowsize, totalRecord, field, keyword); 
+		
+		System.out.println("검색 게시물 수 >> " + dto.getTotalRecord());
+		System.out.println("검색 전체 페이지 수 >> " + dto.getAllPage());
+		
+		List<BoardDTO> list = this.dao.searchBoardList(dto);
+		
+		model.addAttribute("searchPageList", list);
+		model.addAttribute("Paging", dto);
+		
+		return "board_searchList";
+	}
 }

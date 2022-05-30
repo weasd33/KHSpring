@@ -14,6 +14,7 @@
 		<hr width="50%" color="red"> <br>
 		
 		<form method="post" action="<%=request.getContextPath() %>/board_search.do">
+			<input type="hidden" name="page" value="${paging.getPage() }" />
 			<select name="field">
 				<option value="title">제목</option>
 				<option value="cont">내용</option>

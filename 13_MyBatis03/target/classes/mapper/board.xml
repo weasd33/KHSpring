@@ -63,5 +63,59 @@
 	<update id="seq" parameterType="int">
 		<![CDATA[UPDATE BOARD SET BOARD_NO = BOARD_NO - 1 WHERE BOARD_NO > #{no}]]>
 	</update>
+	
+	<select id="title" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE BOARD_TITLE LIKE '%' || #{keyword} ||  '%'
+	</select>
+	
+	<select id="cont" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE BOARD_CONTENT LIKE '%' || #{keyword} ||  '%'
+	</select>
+	
+	<select id="title_cont" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE BOARD_TITLE LIKE '%' || #{keyword} ||  '%' 
+			OR BOARD_CONTENT LIKE '%' || #{keyword} ||  '%'
+	</select>
+	
+	<select id="writer" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE BOARD_WRITER LIKE '%' || #{keyword} ||  '%'
+	</select>
+	
+	<select id="title1" parameterType="pageDto" resultType="boardDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM FROM BOARD B
+			 	WHERE BOARD_TITLE LIKE '%' || #{keyword} ||  '%')
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="cont1" parameterType="pageDto" resultType="boardDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM FROM BOARD B
+			 	WHERE BOARD_CONTENT LIKE '%' || #{keyword} ||  '%')
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="title_cont1" parameterType="pageDto" resultType="boardDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM FROM BOARD B
+			 	WHERE BOARD_TITLE LIKE '%' || #{keyword} ||  '%' OR 
+			 	WHERE BOARD_CONTENT LIKE '%' || #{keyword} ||  '%'))
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="writer1" parameterType="pageDto" resultType="boardDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM FROM BOARD B
+			 	WHERE BOARD_WRITER LIKE '%' || #{keyword} ||  '%')
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
 </mapper>
 
